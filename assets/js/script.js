@@ -5,10 +5,21 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 var taskFormHandler = function(event) { 
     event.preventDefault(); 
     //read the Task name
-    var taskNameInput = document.querySelector("input[name='task-name']");
+    var taskNameInput = document.querySelector("input[name='task-name']").value;
     //read the Task type
-    var taskTypeInput = document.querySelector("select[name='task-type']");
-    //package up data as an object
+    var taskTypeInput = document.querySelector("select[name='task-type']").value;
+    // check if input values are empty strings
+if (!taskNameInput || !taskTypeInput) {
+    alert("You need to fill out the task form!");
+    return false;
+  }
+ formEl.reset();
+
+ // reset form fields for next task to be entered
+ document.querySelector("input[name='task-name']").value = "";
+ document.querySelector("select[name='task-type']").selectedIndex = 0;
+    
+ //package up data as an object
     var taskDataObj= {
         name: taskNameInput,
         type: taskTypeInput
@@ -28,7 +39,7 @@ var createTaskEl = function(taskDataObj) {
      //give it a class name
      taskInfoEl.className = "task-info";
      // add HTML content to div
-     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name.value+ "</h3><span class='task-type'>" + taskDataObj.type.value + "</span>";
+     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
      //append taskinfo to list item
      listItemEl.appendChild(taskInfoEl);
      //add entire list item to ul list in html
